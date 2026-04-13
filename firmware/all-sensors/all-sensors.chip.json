@@ -1,0 +1,33 @@
+{
+  "name": "all-sensors",
+  "author": "Hubert Chen",
+  "pins": [ "SDA", "SCL", "GND", "VCC", "BUTT1", "BUTT2" ],
+  "controls": [
+    {
+      "id": "distance_raw",
+      "label": "Object Distance raw",
+      "type": "range",
+      "min": 0,
+      "max": 255,
+      "value": 120
+    },
+    {
+      "id": "weight_raw",
+      "label": "Object weight (g)",
+      "type": "range",
+      "min": 0,
+      "max": 50000,
+      "value": 120
+    },
+    {
+      "id": "butt1_control",
+      "label": "Button 1 (Cancel)",
+      "type": "button"
+    },
+    {
+      "id": "butt2_control",
+      "label": "Button 2 (Confirm)",
+      "type": "button"
+    }
+  ]
+}

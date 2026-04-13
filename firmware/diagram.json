@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "author": "Hubert Chen",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 19.2, "left": -33.56, "attrs": {} },
+    {
+      "type": "chip-all-sensors",
+      "id": "chip1",
+      "top": 87.42,
+      "left": 273.6,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "chip1:SDA", "esp:21", "green", [ "h0" ] ],
+    [ "esp:22", "chip1:SCL", "green", [ "h182.4", "v38.4" ] ],
+    [ "chip1:GND", "esp:GND.2", "black", [ "h-286.19", "v-57.6" ] ],
+    [ "chip1:VCC", "esp:3V3", "red", [ "h21.01", "v-96", "h-432.15" ] ],
+    [ "chip1:BUTT2", "esp:17", "green", [ "h49.81", "v48" ] ],
+    [ "esp:5", "chip1:BUTT1", "green", [ "h345.6", "v-28.8" ] ]
+  ],
+  "dependencies": {}
+}
