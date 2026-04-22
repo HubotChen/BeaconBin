@@ -3,8 +3,12 @@
     "description": "A Node-RED Project",
     "version": "0.0.1",
     "private": true,
+    "scripts": {
+        "start": "node-red -u ."
+    },
     "dependencies": {
         "@flowfuse/node-red-dashboard": "~1.30.2",
+        "node-red": "^4.1.8",
         "node-red-contrib-influxdb": "~0.7.0",
         "node-red-contrib-ui-heatmap": "~2.2.1"
     }
