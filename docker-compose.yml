@@ -1,6 +1,17 @@
 version: "3.8"
 
 services:
+  node-red:
+    image: nodered/node-red:latest
+    container_name: beacon-node-red
+    environment:
+      - TZ=America/New_York
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./node-red:/data
+    command: /bin/bash -c "cd /data && npm install && npm start"
+
   influxdb:
     image: influxdb:2
     ports:

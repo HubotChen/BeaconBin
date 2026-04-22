@@ -265,7 +265,7 @@
         "type": "function",
         "z": "dc3901db363fa281",
         "name": "function 1",
-        "func": "const weight = Number(msg.payload.sensors.weight.value) || 0;\nconst distance = Number(msg.payload.sensors.distance.value) || 0;\nconst device = msg.payload.device_id || \"unknown\";\nconst cancel = Number(msg.payload.sensors.cancel.value) || 0;\nconst confirm = Number(msg.payload.sensors.confirm.value) || 0;\n\nconst sensorTime = msg.payload.timestamp ? new Date(msg.payload.timestamp) : new Date();\n\nmsg.measurement = \"sensor_logs_1\";\n\n// The array must be [fields, tags]\nmsg.payload = [\n    { \n        weight: weight, \n        distance: distance,\n        cancel: cancel,\n        confirm: confirm,\n    },\n    { \n        device_id: device \n    },\n    sensorTime\n];\n\nreturn msg;",
+        "func": "const weight = Number(msg.payload.sensors.weight.value) || 0;\nconst distance = Number(msg.payload.sensors.distance.value) || 0;\nconst device = msg.payload.device_id || \"unknown\";\nconst cancel = Number(msg.payload.sensors.cancel.value) || 0;\nconst confirm = Number(msg.payload.sensors.confirm.value) || 0;\n\nmsg.measurement = \"sensor_logs_1\";\n\n// The array must be [fields, tags]\nmsg.payload = [\n    { \n        weight: weight, \n        distance: distance,\n        cancel: cancel,\n        confirm: confirm,\n    },\n    { \n        device_id: device \n    }\n];\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
