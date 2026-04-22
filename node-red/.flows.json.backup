@@ -176,8 +176,7 @@
                 "df3b252590fe18be",
                 "8a7f6b3040e3a4be",
                 "bb42d25a35319d8a",
-                "bc9e6c14b5439f30",
-                "2bd9c36c9d16b656"
+                "bc9e6c14b5439f30"
             ]
         ]
     },
@@ -197,26 +196,9 @@
         "y": 420,
         "wires": [
             [
-                "42dee0fe9d794335",
-                "0669d956c1137b6e"
+                "42dee0fe9d794335"
             ]
         ]
-    },
-    {
-        "id": "0669d956c1137b6e",
-        "type": "debug",
-        "z": "dc3901db363fa281",
-        "name": "debug 2",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1280,
-        "y": 560,
-        "wires": []
     },
     {
         "id": "42dee0fe9d794335",
@@ -265,7 +247,7 @@
         "type": "function",
         "z": "dc3901db363fa281",
         "name": "function 1",
-        "func": "const weight = Number(msg.payload.sensors.weight.value) || 0;\nconst distance = Number(msg.payload.sensors.distance.value) || 0;\nconst device = msg.payload.device_id || \"unknown\";\nconst cancel = Number(msg.payload.sensors.cancel.value) || 0;\nconst confirm = Number(msg.payload.sensors.confirm.value) || 0;\n\nmsg.measurement = \"sensor_logs_1\";\n\n// The array must be [fields, tags]\nmsg.payload = [\n    { \n        weight: weight, \n        distance: distance,\n        cancel: cancel,\n        confirm: confirm,\n    },\n    { \n        device_id: device \n    }\n];\n\nreturn msg;",
+        "func": "const weight = Number(msg.payload.sensors.weight.value) || 0;\nconst distance = Number(msg.payload.sensors.distance.value) || 0;\nconst device = msg.payload.device_id || \"unknown\";\nconst cancel = Number(msg.payload.sensors.cancel.value) || 0;\nconst confirm = Number(msg.payload.sensors.confirm.value) || 0;\n\nconst sensorTime = msg.payload.timestamp ? new Date(msg.payload.timestamp) : new Date();\n\nmsg.measurement = \"sensor_logs_1\";\n\n// The array must be [fields, tags]\nmsg.payload = [\n    { \n        weight: weight, \n        distance: distance,\n        cancel: cancel,\n        confirm: confirm,\n    },\n    { \n        device_id: device \n    },\n    sensorTime\n];\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -357,21 +339,5 @@
                 "4a445d93551c2f50"
             ]
         ]
-    },
-    {
-        "id": "2bd9c36c9d16b656",
-        "type": "debug",
-        "z": "dc3901db363fa281",
-        "name": "debug 3",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 690,
-        "y": 620,
-        "wires": []
     }
 ]

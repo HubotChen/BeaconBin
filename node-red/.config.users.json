@@ -18,7 +18,7 @@
             }
         },
         "debug": {
-            "filter": "filterSelected",
+            "filter": "filterAll",
             "filteredNodes": [
                 "734fdfdd50633f2e",
                 "0669d956c1137b6e",
