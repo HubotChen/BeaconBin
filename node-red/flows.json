@@ -1,0 +1,301 @@
+[
+    {
+        "id": "dc3901db363fa281",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a818db8dc6aa2750",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "9ab7564ffe0b4083",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "800fa8a5b07d7460",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "6aef341b16729cfb",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "9ab7564ffe0b4083",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "800fa8a5b07d7460",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "bb7bcff9637642b5",
+        "type": "ui-group",
+        "name": "Weight Heatmap",
+        "page": "6aef341b16729cfb",
+        "width": "6",
+        "height": "6",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "2299b11c99dc3db0",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://localhost:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "238d3ee607a6ec98",
+        "type": "mqtt in",
+        "z": "dc3901db363fa281",
+        "name": "",
+        "topic": "eece5155/Hubert/data",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "a818db8dc6aa2750",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 620,
+        "y": 420,
+        "wires": [
+            [
+                "df3b252590fe18be",
+                "8a7f6b3040e3a4be",
+                "bb42d25a35319d8a"
+            ]
+        ]
+    },
+    {
+        "id": "df3b252590fe18be",
+        "type": "function",
+        "z": "dc3901db363fa281",
+        "name": "function 2",
+        "func": "// Get or create the 100-item array\nlet weights = flow.get(\"deviceWeights\") || new Array(100).fill(0);\n\n// Extract number from \"node-001\"\nlet idMatch = msg.payload.device_id.match(/\\d+/);\nif (idMatch) {\n    let index = parseInt(idMatch[0], 10) - 1;\n    if (index >= 0 && index < 100) {\n        // Store the weight value\n        weights[index] = Number(msg.payload.sensors.weight.value) || 0;\n    }\n}\n\nflow.set(\"deviceWeights\", weights);\nmsg.payload = weights;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 420,
+        "wires": [
+            [
+                "42dee0fe9d794335",
+                "0669d956c1137b6e"
+            ]
+        ]
+    },
+    {
+        "id": "0669d956c1137b6e",
+        "type": "debug",
+        "z": "dc3901db363fa281",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "42dee0fe9d794335",
+        "type": "ui-template",
+        "z": "dc3901db363fa281",
+        "group": "bb7bcff9637642b5",
+        "page": "",
+        "ui": "",
+        "name": "",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "head": "",
+        "format": "<template>\n    <div class=\"grid-container\">\n        <div v-for=\"(val, index) in msg.payload\" \n             :key=\"index\"\n             class=\"grid-cell\" \n             :style=\"{ backgroundColor: getCellColor(val) }\">\n            <span class=\"cell-id\">{{ index + 1 }}</span>\n            <span class=\"cell-val\">{{ val }}</span>\n        </div>\n    </div>\n</template>\n\n<script>\nexport default {\n    methods: {\n        getCellColor(val) {\n            if (!val || val <= 0) return '#222';\n            \n            // Normalize 0-4000g to a 0-100 scale for color math\n            const normalized = Math.min(100, val / 40);\n            \n            // Calculate Red and Green components\n            // 0g = Green (0, 255, 0)\n            // 2000g = Yellow (255, 255, 0)\n            // 4000g = Red (255, 0, 0)\n            const r = Math.min(255, (normalized * 5.1));\n            const g = Math.min(255, (510 - (normalized * 5.1)));\n            \n            return `rgb(${Math.floor(r)}, ${Math.floor(g)}, 0)`;\n        }\n    }\n}\n</script>\n\n<style scoped>\n    .grid-container {\n        display: grid;\n        grid-template-columns: repeat(10, 1fr);\n        gap: 2px;\n        width: 100%;\n        background-color: #000;\n        padding: 5px;\n    }\n    .grid-cell {\n        aspect-ratio: 1 / 1;\n        border: 1px solid #333;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        color: white;\n    }\n    .cell-id { font-size: 0.6rem; opacity: 0.5; }\n    .cell-val { font-size: 0.8rem; font-weight: bold; }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1300,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c2d7bd3079f9151",
+        "type": "influxdb out",
+        "z": "dc3901db363fa281",
+        "influxdb": "2299b11c99dc3db0",
+        "name": "",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "eece5155",
+        "bucket": "iot-sensors",
+        "x": 1110,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "8a7f6b3040e3a4be",
+        "type": "function",
+        "z": "dc3901db363fa281",
+        "name": "function 1",
+        "func": "const weight = Number(msg.payload.sensors.weight.value) || 0;\nconst distance = Number(msg.payload.sensors.distance.value) || 0;\nconst device = msg.payload.device_id || \"unknown\";\nconst cancel = Number(msg.payload.sensors.cancel.value) || 0;\nconst confirm = Number(msg.payload.sensors.confirm.value) || 0;\n\nmsg.measurement = \"sensor_logs_1\";\n\n// The array must be [fields, tags]\nmsg.payload = [\n    { \n        weight: weight, \n        distance: distance,\n        cancel: cancel,\n        confirm: confirm,\n    },\n    { \n        device_id: device \n    }\n];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 600,
+        "wires": [
+            [
+                "734fdfdd50633f2e",
+                "2c2d7bd3079f9151"
+            ]
+        ]
+    },
+    {
+        "id": "734fdfdd50633f2e",
+        "type": "debug",
+        "z": "dc3901db363fa281",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "bb42d25a35319d8a",
+        "type": "debug",
+        "z": "dc3901db363fa281",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 500,
+        "wires": []
+    }
+]
