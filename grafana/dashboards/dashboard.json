@@ -1,4 +1,6 @@
 {
+  "id": null,
+  "uid": "node-simulator-v1",
   "annotations": [
     {
       "kind": "AnnotationQuery",
