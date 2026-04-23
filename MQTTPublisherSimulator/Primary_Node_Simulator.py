@@ -77,29 +77,10 @@ def simulate_item_interaction(node_id, weight_change=0, distance_change=0):
     with data_lock:
         nodes[node_id]["current_weight"] = new_weight
         nodes[node_id]["current_distance"] = new_distance
-        nodes[node_id]["confirm"] = 1
-
-    print("added an object")
-
-    # if new_weight <= MAX_WEIGHT and new_distance >= 0:
-    #     # introducing noise
-    #     with data_lock:
-    #         nodes[node_id]["current_weight"] = min(MAX_WEIGHT, original_weight + int(random.uniform(50, 2000)))
-    #         nodes[node_id]["current_distance"] = max(0, original_distance - int(random.uniform(5, 150)))
-        
-    #     # Wait for the noise to settle (less than 2 seconds)
-    #     time.sleep(0.5)
-        
-    #     with data_lock:
-    #         nodes[node_id]["current_weight"] = new_weight
-    #         nodes[node_id]["current_distance"] = new_distance
-    #         nodes[node_id]["confirm"] = 1
-
-    #     print("added an object")
-
-    # else:
-    #     print(f"Node {node_id} full.")
-
+        if weight_change == 0:
+            nodes[node_id]["cancel"] = 1
+        else:
+            nodes[node_id]["confirm"] = 1
 
 # --- 4. Setup MQTT Client ---
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id="esp32-manual-test")
