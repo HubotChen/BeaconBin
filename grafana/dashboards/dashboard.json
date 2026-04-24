@@ -1,6 +1,4 @@
 {
-  "id": null,
-  "uid": "node-simulator-v1",
   "annotations": [
     {
       "kind": "AnnotationQuery",
@@ -134,6 +132,95 @@
                 "mode": "single",
                 "sort": "none"
               }
+            }
+          },
+          "version": "13.0.1"
+        }
+      }
+    },
+    "panel-10": {
+      "kind": "Panel",
+      "spec": {
+        "data": {
+          "kind": "QueryGroup",
+          "spec": {
+            "queries": [
+              {
+                "kind": "PanelQuery",
+                "spec": {
+                  "hidden": false,
+                  "query": {
+                    "datasource": {
+                      "name": "P951FEA4DE68E13C5"
+                    },
+                    "group": "influxdb",
+                    "kind": "DataQuery",
+                    "spec": {
+                      "query": "from(bucket: \"iot-sensors\")\r\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"sensor_logs_1\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"cancel\")\r\n  |> filter(fn: (r) => r[\"device_id\"] == \"${selected_node}\")\r\n  |> filter(fn: (r) => r._value == 1)\r\n  |> count()\r\n  |> yield(name: \"total_presses\")"
+                    },
+                    "version": "v0"
+                  },
+                  "refId": "A"
+                }
+              }
+            ],
+            "queryOptions": {},
+            "transformations": []
+          }
+        },
+        "description": "",
+        "id": 10,
+        "links": [],
+        "title": "${selected_node} cancel button interactions",
+        "vizConfig": {
+          "group": "gauge",
+          "kind": "VizConfig",
+          "spec": {
+            "fieldConfig": {
+              "defaults": {
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "options": {
+              "barShape": "flat",
+              "barWidthFactor": 0.3,
+              "effects": {
+                "barGlow": false,
+                "centerGlow": false,
+                "gradient": true
+              },
+              "endpointMarker": "point",
+              "minVizHeight": 75,
+              "minVizWidth": 75,
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "segmentCount": 1,
+              "segmentSpacing": 0.3,
+              "shape": "gauge",
+              "showThresholdLabels": false,
+              "showThresholdMarkers": false,
+              "sizing": "auto",
+              "sparkline": false,
+              "textMode": "auto"
             }
           },
           "version": "13.0.1"
@@ -950,6 +1037,95 @@
           "version": "13.0.1"
         }
       }
+    },
+    "panel-9": {
+      "kind": "Panel",
+      "spec": {
+        "data": {
+          "kind": "QueryGroup",
+          "spec": {
+            "queries": [
+              {
+                "kind": "PanelQuery",
+                "spec": {
+                  "hidden": false,
+                  "query": {
+                    "datasource": {
+                      "name": "P951FEA4DE68E13C5"
+                    },
+                    "group": "influxdb",
+                    "kind": "DataQuery",
+                    "spec": {
+                      "query": "from(bucket: \"iot-sensors\")\r\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"sensor_logs_1\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"confirm\")\r\n  |> filter(fn: (r) => r[\"device_id\"] == \"${selected_node}\")\r\n  |> filter(fn: (r) => r._value == 1)\r\n  |> count()\r\n  |> yield(name: \"total_presses\")"
+                    },
+                    "version": "v0"
+                  },
+                  "refId": "A"
+                }
+              }
+            ],
+            "queryOptions": {},
+            "transformations": []
+          }
+        },
+        "description": "",
+        "id": 9,
+        "links": [],
+        "title": "${selected_node} confirm button interactions",
+        "vizConfig": {
+          "group": "gauge",
+          "kind": "VizConfig",
+          "spec": {
+            "fieldConfig": {
+              "defaults": {
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "options": {
+              "barShape": "flat",
+              "barWidthFactor": 0.3,
+              "effects": {
+                "barGlow": false,
+                "centerGlow": false,
+                "gradient": true
+              },
+              "endpointMarker": "point",
+              "minVizHeight": 75,
+              "minVizWidth": 75,
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "segmentCount": 1,
+              "segmentSpacing": 0.3,
+              "shape": "gauge",
+              "showThresholdLabels": false,
+              "showThresholdMarkers": false,
+              "sizing": "auto",
+              "sparkline": false,
+              "textMode": "auto"
+            }
+          },
+          "version": "13.0.1"
+        }
+      }
     }
   },
   "layout": {
@@ -1015,7 +1191,7 @@
               "kind": "ElementReference",
               "name": "panel-4"
             },
-            "height": 8,
+            "height": 4,
             "width": 12,
             "x": 0,
             "y": 16
@@ -1039,9 +1215,22 @@
           "spec": {
             "element": {
               "kind": "ElementReference",
+              "name": "panel-9"
+            },
+            "height": 4,
+            "width": 12,
+            "x": 0,
+            "y": 20
+          }
+        },
+        {
+          "kind": "GridLayoutItem",
+          "spec": {
+            "element": {
+              "kind": "ElementReference",
               "name": "panel-5"
             },
-            "height": 8,
+            "height": 4,
             "width": 12,
             "x": 0,
             "y": 24
@@ -1058,6 +1247,19 @@
             "width": 12,
             "x": 12,
             "y": 24
+          }
+        },
+        {
+          "kind": "GridLayoutItem",
+          "spec": {
+            "element": {
+              "kind": "ElementReference",
+              "name": "panel-10"
+            },
+            "height": 4,
+            "width": 12,
+            "x": 0,
+            "y": 28
           }
         }
       ]
@@ -1090,10 +1292,10 @@
       "1d"
     ],
     "fiscalYearStartMonth": 0,
-    "from": "2026-04-23T17:15:52.195Z",
+    "from": "now-24h",
     "hideTimepicker": false,
     "timezone": "browser",
-    "to": "2026-04-23T18:20:18.707Z"
+    "to": "now"
   },
   "title": "main dashboard",
   "variables": [
